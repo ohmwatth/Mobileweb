@@ -1,11 +1,911 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header>KKU Campus Guide</header>
-</body>
+<!doctype html>
+<html lang="th">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KKU Campus Guide</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #A73B24 0%, #8f341f 100%);
+            color: #2d3748;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        .main-container {
+            width: 100%;
+            background: #f7fafc;
+        }
+
+        header {
+            background: linear-gradient(135deg, #A73B24 0%, #8f341f 100%);
+            color: white;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            text-align: left;
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        #logoCanvas {
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: slideInDown 0.8s ease-out;
+            text-align: left;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: slideInDown 1s ease-out;
+            text-align: left;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .student-info {
+            background: rgba(255,255,255,0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.2s ease-out;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .place-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: cardSlideIn 0.6s ease-out backwards;
+        }
+
+        .place-card:nth-child(1) { animation-delay: 0.1s; }
+        .place-card:nth-child(2) { animation-delay: 0.2s; }
+        .place-card:nth-child(3) { animation-delay: 0.3s; }
+        .place-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .place-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .place-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #f0ba9f;
+        }
+
+        .place-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 8px;
+        }
+
+        .place-image:hover {
+            transform: scale(1.05);
+        }
+
+        .place-content {
+            padding: 1.5rem;
+        }
+
+        .place-card h3 {
+            color: #A73B24;
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .place-card p {
+            color: #000000;
+            line-height: 1.7;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: formSlideIn 0.8s ease-out;
+        }
+
+        @keyframes formSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-section h2 {
+            color: #A73B24;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #A73B24;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #A73B24 0%, #e68c78 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .user-places-section {
+            margin-top: 3rem;
+        }
+
+        .user-places-section h2 {
+            color: #A73B24;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .user-place-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            gap: 1.5rem;
+            align-items: start;
+            animation: userCardSlideIn 0.5s ease-out;
+        }
+
+        @keyframes userCardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .user-place-image-container {
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .user-place-image-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .user-place-info h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .user-place-info p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .delete-btn {
+            background: #fc8181;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background: #f56565;
+            transform: scale(1.05);
+        }
+
+        .delete-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            animation: messageSlide 0.5s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border-left: 4px solid #38a169;
+        }
+
+        .message.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .limit-warning {
+            background: #feebc8;
+            color: #744210;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ed8936;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #718096;
+        }
+
+        .empty-state svg {
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-left {
+                text-align: center;
+                width: 100%;
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                text-align: center;
+            }
+
+            .student-info {
+                position: static;
+                display: inline-block;
+                margin-top: 1rem;
+                text-align: center;
+            }
+
+            .places-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .user-place-card {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .user-place-image-container {
+                width: 100%;
+                height: 200px;
+            }
+
+            .delete-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .place-images {
+                grid-template-columns: 1fr;
+            }
+
+            .place-image {
+                height: 120px;
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="main-container">
+   <header>
+    <div class="header-left">
+     <div class="logo-container">
+      <canvas id="logoCanvas" width="120" height="120"></canvas>
+     </div>
+     <div class="header-text">
+      <h1 id="siteTitle">KKU Campus Guide</h1>
+      <p class="subtitle" id="siteSubtitle">แนะนำสถานที่น่าสนใจในมหาวิทยาลัยขอนแก่น</p>
+     </div>
+    </div>
+    <div class="student-info">
+     <p><strong>รหัสนักศึกษา:</strong> <span id="studentId">663380001-9</span></p>
+     <p><strong>ชื่อ-สกุล:</strong> <span id="studentName">นายสมชาย ใจดี</span></p>
+    </div>
+   </header>
+   <main>
+    <section class="places-section">
+     <div class="places-grid">
+      <article class="place-card">
+       <div class="place-images">
+        <div class="place-image">
+         <img src="https://asset.kku.ac.th/wp-content/uploads/2022/04/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3-1-%E0%B8%84%E0%B8%AD%E0%B8%A1%E0%B9%80%E0%B8%9E%E0%B8%A5%E0%B9%87%E0%B8%81%E0%B8%8B%E0%B9%8C-%E0%B8%99.%E0%B8%AA.%E0%B8%88%E0%B8%B8%E0%B8%91%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%95%E0%B8%99%E0%B9%8C-%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%AA%E0%B8%81%E0%B8%B8%E0%B8%A5-5-1024x768.jpg" alt="คอมเพล็กซ์ มข.">
+        </div>
+        <div class="place-image">
+         <img src="https://asset.kku.ac.th/wp-content/uploads/2022/04/6-1024x683.jpg" alt="คอมเพล็กซ์ มข.">
+        </div>
+       </div>
+       <div class="place-content">
+        <h3>คอมเพล็กซ์</h3>
+        <p>ศูนย์รวมความสะดวกสบายของนักศึกษา มข. มีทั้งร้านอาหารหลากหลาย ร้านเครื่องเขียน ร้านสะดวกซื้อ ธนาคาร และสถานที่พักผ่อน เป็นจุดนัดพบยอดนิยมและศูนย์กลางของกิจกรรมนักศึกษา มีบรรยากาศคึกคักตลอดทั้งวัน</p>
+       </div>
+      </article>
+      <article class="place-card">
+       <div class="place-images">
+        <div class="place-image">
+         ⚽
+        </div>
+        <div class="place-image">
+         🏃
+        </div>
+       </div>
+       <div class="place-content">
+        <h3>สนามกีฬา 50 ปี</h3>
+        <p>สนามกีฬาขนาดมาตรฐานที่สร้างขึ้นเพื่อเฉลิมฉลอง 50 ปี มหาวิทยาลัยขอนแก่น มีลู่วิ่ง สนามฟุตบอล และอุปกรณ์กีฬาครบครัน เป็นสถานที่จัดการแข่งขันกีฬาสำคัญและเป็นที่ออกกำลังกายยอดนิยมของนักศึกษาและบุคลากร</p>
+       </div>
+      </article>
+      <article class="place-card">
+       <div class="place-images">
+        <div class="place-image">
+         📚
+        </div>
+        <div class="place-image">
+         📖
+        </div>
+       </div>
+       <div class="place-content">
+        <h3>ห้องสมุดกลาง</h3>
+        <p>ห้องสมุดกลางมหาวิทยาลัยขอนแก่น แหล่งความรู้ที่ทันสมัยและครบครัน มีหนังสือและทรัพยากรการเรียนรู้มากมาย พื้นที่อ่านหนังสือเงียบสงบ ระบบค้นหาหนังสืออัตโนมัติ ห้องศึกษากลุ่ม และบริการอินเทอร์เน็ตความเร็วสูง เหมาะสำหรับการศึกษาค้นคว้า</p>
+       </div>
+      </article>
+      <article class="place-card">
+       <div class="place-images">
+        <div class="place-image">
+         🙏
+        </div>
+        <div class="place-image">
+         ✨
+        </div>
+       </div>
+       <div class="place-content">
+        <h3>เจ้าพ่อมอดินแดง</h3>
+        <p>ศาลเจ้าพ่อมอดินแดง สถานที่ศักดิ์สิทธิ์ที่นักศึกษาและบุคลากร มข. ให้ความเคารพ เป็นที่ขอพรก่อนสอบและขอพรเรื่องการเรียน มีบรรยากาศร่มรื่น สงบ เงียบ เหมาะสำหรับการทำจิตใจให้สงบและเป็นสัญลักษณ์ทางจิตใจของชาว มข.</p>
+       </div>
+      </article>
+     </div>
+    </section>
+    <section class="form-section">
+     <h2 id="formTitle">แนะนำสถานที่ของคุณ</h2>
+     <div id="messageContainer"></div>
+     <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="6bb68590-0fa3-44a2-b8cf-d7de8102134e">
+      <div class="form-group"><label for="placeName">ชื่อสถานที่ *</label> <input type="text" id="placeName" required placeholder="เช่น อาคารเรียนรวม">
+      </div>
+      <div class="form-group"><label for="placeDescription">รายละเอียด *</label> <textarea id="placeDescription" required placeholder="บรรยายเกี่ยวกั��สถานที่นี้..."></textarea>
+      </div>
+      <div class="form-group"><label for="imageUrl">URL ของ���า�� *</label> <input type="url" id="imageUrl" required placeholder="https://example.com/image.jpg">
+      </div><button type="submit" class="submit-btn" id="submitBtn"> <span id="submitBtnText">ส่งข้อมูล</span> </button>
+     </form>
+    </section>
+    <section class="user-places-section">
+     <h2>สถานที่ที่แนะนำโดยผู้ชม</h2>
+     <div id="userPlacesList"></div>
+    </section>
+   </main>
+   <footer>
+    <p>© 2024 KKU Campus Guide | มหาวิทยาลัยขอนแก่น</p>
+   </footer>
+  </div>
+  <script>
+        const defaultConfig = {
+            site_title: "KKU Campus Guide",
+            site_subtitle: "แนะนำสถานที่น่าสนใจในมหาวิทยาลัยขอนแก่น",
+            student_id: "663380001-9",
+            student_name: "นายสมชาย ใจดี",
+            form_title: "แนะนำสถานที่ของคุณ",
+            form_button_text: "ส่งข้อมูล",
+            primary_color: "#A73B24",
+            secondary_color: "#8B2F1F",
+            background_color: "#A73B24",
+            text_color: "#2d3748",
+            accent_color: "#fc8181"
+        };
+
+        let userPlaces = [];
+
+        // Draw Logo on Canvas
+        function drawLogo() {
+            const canvas = document.getElementById('logoCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw shield background
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            // Shield shape
+            ctx.moveTo(60, 10);
+            ctx.lineTo(95, 25);
+            ctx.lineTo(95, 60);
+            ctx.quadraticCurveTo(95, 90, 60, 105);
+            ctx.quadraticCurveTo(25, 90, 25, 60);
+            ctx.lineTo(25, 25);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw inner shield
+            ctx.fillStyle = '#A73B24';
+            ctx.beginPath();
+            ctx.moveTo(60, 20);
+            ctx.lineTo(87, 32);
+            ctx.lineTo(87, 60);
+            ctx.quadraticCurveTo(87, 82, 60, 95);
+            ctx.quadraticCurveTo(33, 82, 33, 60);
+            ctx.lineTo(33, 32);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw book symbol
+            ctx.fillStyle = 'white';
+            ctx.fillRect(50, 45, 20, 25);
+            ctx.strokeStyle = '#A73B24';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(60, 45);
+            ctx.lineTo(60, 70);
+            ctx.stroke();
+            
+            // Draw KKU text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('KKU', 60, 30);
+            
+            // Draw laurel wreath decoration
+            ctx.strokeStyle = '#ffd700';
+            ctx.lineWidth = 2;
+            // Left laurel
+            ctx.beginPath();
+            ctx.arc(40, 80, 8, 0, Math.PI);
+            ctx.stroke();
+            // Right laurel
+            ctx.beginPath();
+            ctx.arc(80, 80, 8, 0, Math.PI);
+            ctx.stroke();
+        }
+
+        drawLogo();
+
+        // Data SDK Handler
+        const dataHandler = {
+            onDataChanged(data) {
+                userPlaces = data;
+                renderUserPlaces();
+            }
+        };
+
+        // Initialize Data SDK
+        async function initDataSdk() {
+            if (window.dataSdk) {
+                const result = await window.dataSdk.init(dataHandler);
+                if (!result.isOk) {
+                    console.error("Failed to initialize Data SDK");
+                }
+            }
+        }
+
+        // Render User Places
+        function renderUserPlaces() {
+            const container = document.getElementById('userPlacesList');
+            
+            if (userPlaces.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <p>ยังไม่มีสถานที่ที่แนะนำ กรุณาส่งส��านที่แรก���องคุณ!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = userPlaces.map(place => `
+                <div class="user-place-card" data-id="${place.__backendId}">
+                    <div class="user-place-image-container">
+                        <svg width="200" height="150" viewBox="0 0 200 150">
+                            <defs>
+                                <linearGradient id="grad-${place.__backendId}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect width="200" height="150" fill="url(#grad-${place.__backendId})"/>
+                            <text x="100" y="75" font-size="48" text-anchor="middle" fill="white" dominant-baseline="middle">📍</text>
+                        </svg>
+                    </div>
+                    <div class="user-place-info">
+                        <h3>${escapeHtml(place.place_name)}</h3>
+                        <p>${escapeHtml(place.description)}</p>
+                        <p style="margin-top: 0.5rem; color: #718096; font-size: 0.9rem;">
+                            <strong>URL ภาพ:</strong> <a href="${escapeHtml(place.image_url)}" target="_blank" rel="noopener noreferrer" style="color: #667eea;">${escapeHtml(place.image_url)}</a>
+                        </p>
+                    </div>
+                    <button class="delete-btn" onclick="deletePlace('${place.__backendId}')">ลบ</button>
+                </div>
+            `).join('');
+        }
+
+        // Delete Place
+        async function deletePlace(backendId) {
+            const place = userPlaces.find(p => p.__backendId === backendId);
+            if (!place) return;
+            
+            const deleteBtn = document.querySelector(`[data-id="${backendId}"] .delete-btn`);
+            deleteBtn.disabled = true;
+            deleteBtn.textContent = '���ำล�����ลบ...';
+            
+            const result = await window.dataSdk.delete(place);
+            
+            if (result.isOk) {
+                showMessage('ลบสถานที่เรียบร้อยแล้ว', 'success');
+            } else {
+                showMessage('เกิดข้อผิดพลาดในการลบสถานที่', 'error');
+                deleteBtn.disabled = false;
+                deleteBtn.textContent = 'ลบ';
+            }
+        }
+
+        // Form Submit Handler
+        document.getElementById('placeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (userPlaces.length >= 999) {
+                showMessage('ถึงขีดจำกัดแล้ว (999 สถานที่) กรุณาลบบางสถานที่ก่อนเพิ่มใหม่', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            submitBtn.disabled = true;
+            submitBtnText.textContent = 'กำลังส่ง...';
+            
+            const placeName = document.getElementById('placeName').value;
+            const description = document.getElementById('placeDescription').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            
+            const newPlace = {
+                place_name: placeName,
+                description: description,
+                image_url: imageUrl,
+                created_at: new Date().toISOString()
+            };
+            
+            const result = await window.dataSdk.create(newPlace);
+            
+            if (result.isOk) {
+                showMessage('เพิ่มสถานที่เรียบร้อยแล้ว!', 'success');
+                document.getElementById('placeForm').reset();
+            } else {
+                showMessage('เกิดข้อผิดพลาดในการเพิ่มสถานที่', 'error');
+            }
+            
+            submitBtn.disabled = false;
+            submitBtnText.textContent = defaultConfig.form_button_text;
+        });
+
+        // Show Message
+        function showMessage(text, type) {
+            const container = document.getElementById('messageContainer');
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            container.innerHTML = '';
+            container.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 5000);
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Element SDK Implementation
+        async function onConfigChange(config) {
+            document.getElementById('siteTitle').textContent = config.site_title || defaultConfig.site_title;
+            document.getElementById('siteSubtitle').textContent = config.site_subtitle || defaultConfig.site_subtitle;
+            document.getElementById('studentId').textContent = config.student_id || defaultConfig.student_id;
+            document.getElementById('studentName').textContent = config.student_name || defaultConfig.student_name;
+            document.getElementById('formTitle').textContent = config.form_title || defaultConfig.form_title;
+            document.getElementById('submitBtnText').textContent = config.form_button_text || defaultConfig.form_button_text;
+            
+            // Apply colors
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+            const backgroundColor = config.background_color || defaultConfig.background_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+            
+            document.body.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+            document.querySelector('header').style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+            document.querySelector('.main-container').style.background = backgroundColor;
+            document.body.style.color = textColor;
+            
+            const placeCardHeadings = document.querySelectorAll('.place-card h3, .user-place-info h3, .form-section h2, .user-places-section h2');
+            placeCardHeadings.forEach(heading => {
+                heading.style.color = primaryColor;
+            });
+            
+            document.querySelector('.submit-btn').style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+            
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => {
+                btn.style.background = accentColor;
+            });
+        }
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig: defaultConfig,
+                onConfigChange: onConfigChange,
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        {
+                            get: () => config.primary_color || defaultConfig.primary_color,
+                            set: (value) => {
+                                config.primary_color = value;
+                                window.elementSdk.setConfig({ primary_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.secondary_color || defaultConfig.secondary_color,
+                            set: (value) => {
+                                config.secondary_color = value;
+                                window.elementSdk.setConfig({ secondary_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.background_color || defaultConfig.background_color,
+                            set: (value) => {
+                                config.background_color = value;
+                                window.elementSdk.setConfig({ background_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.text_color || defaultConfig.text_color,
+                            set: (value) => {
+                                config.text_color = value;
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.accent_color || defaultConfig.accent_color,
+                            set: (value) => {
+                                config.accent_color = value;
+                                window.elementSdk.setConfig({ accent_color: value });
+                            }
+                        }
+                    ],
+                    borderables: [],
+                    fontEditable: undefined,
+                    fontSizeable: undefined
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ["site_title", config.site_title || defaultConfig.site_title],
+                    ["site_subtitle", config.site_subtitle || defaultConfig.site_subtitle],
+                    ["student_id", config.student_id || defaultConfig.student_id],
+                    ["student_name", config.student_name || defaultConfig.student_name],
+                    ["form_title", config.form_title || defaultConfig.form_title],
+                    ["form_button_text", config.form_button_text || defaultConfig.form_button_text]
+                ])
+            });
+        }
+
+        // Initialize
+        initDataSdk();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a717d2085827b58',t:'MTc2NDU4MDYxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
