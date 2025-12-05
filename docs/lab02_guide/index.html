@@ -595,18 +595,30 @@
     <section class="form-section">
      <h2 id="formTitle">แนะนำสถานที่ของคุณ</h2>
      <div id="messageContainer"></div>
-     <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="6bb68590-0fa3-44a2-b8cf-d7de8102134e">
-      <div class="form-group"><label for="placeName">ชื่อสถานที่ *</label> <input type="text" id="placeName" required placeholder="เช่น อาคารเรียนรวม">
-      </div>
-      <div class="form-group"><label for="placeDescription">รายละเอียด *</label> <textarea id="placeDescription" required placeholder="บรรยายเกี่ยวกับสถานที่นี้..."></textarea>
-      </div>
-      <div class="form-group"><label for="imageUrl">URL ของสถานที่ *</label> <input type="url" id="imageUrl" required placeholder="https://example.com/image.jpg">
-      </div><button type="submit" class="submit-btn" id="submitBtn"> <span id="submitBtnText">เพิ่มสถานที่</span> </button>
-     </form>
+     <form id="placeForm" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="6bb68590-0fa3-44a2-b8cf-d7de8102134e">
+
+  <div class="form-group">
+    <label>ชื่อสถานที่ *</label>
+    <input type="text" name="place_name" required>
+  </div>
+
+  <div class="form-group">
+    <label>รายละเอียด *</label>
+    <textarea name="description" required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>URL รูป *</label>
+    <input type="url" name="image_url" required>
+  </div>
+  <button type="submit" class="submit-btn" id="submitBtn">
+  <span id="submitBtnText">เพิ่มสถานที่</span>
+</button>
+</form>
     </section>
     <section class="user-places-section">
-     <h2>สถานที่ที่แนะนำโดยผู้ชม</h2>
+     <h2>สถานที่ที่แนะนำ</h2>
      <div id="userPlacesList"></div>
     </section>
    </main>
