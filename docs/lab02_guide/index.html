@@ -136,7 +136,7 @@
         }
 
         .place-card {
-            background: #ffffff;
+            background: #cbbbbb;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -165,19 +165,36 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
 
-        .place-images {
+       .place-images {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.5rem;
             padding: 0.5rem;
-            background: #f0ba9f;
+            background: #c2533a;
         }
+
 
         .place-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover; 
+            height: 160px;          
+            overflow: hidden;
             border-radius: 8px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .place-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;      
+            display: block;
+        }
+
+        .place-image:not(:has(img)) {
+            font-size: 3rem;
         }
 
         .place-image:hover {
@@ -219,7 +236,7 @@
         }
 
         .form-section h2 {
-            color: #A73B24;
+            color: #522d25;
             margin-bottom: 1.5rem;
             font-size: 2rem;
         }
@@ -231,7 +248,7 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #2d3748;
+            color: #1d232c;
             font-weight: 600;
         }
 
@@ -323,7 +340,7 @@
             height: 150px;
             border-radius: 10px;
             overflow: hidden;
-            background: #f0f0f0;
+            background: #7a3f3f;
         }
 
         .user-place-image-container svg {
@@ -338,13 +355,13 @@
         }
 
         .user-place-info p {
-            color: #4a5568;
+            color: #526e9e;
             line-height: 1.6;
         }
 
         .delete-btn {
             background: #fc8181;
-            color: white;
+            color: rgb(169, 111, 111);
             border: none;
             padding: 0.6rem 1.2rem;
             border-radius: 8px;
@@ -354,7 +371,7 @@
         }
 
         .delete-btn:hover {
-            background: #f56565;
+            background: #db6e6e;
             transform: scale(1.05);
         }
 
@@ -487,6 +504,12 @@
                 height: 120px;
             }
         }
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
     </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
@@ -496,7 +519,7 @@
    <header>
     <div class="header-left">
      <div class="logo-container">
-      <canvas id="logoCanvas" width="120" height="120"></canvas>
+      <img src="https://www.kku.ac.th/wp-content/uploads/2019/11/LogoKKUthai_150px.png" alt="โลโก้ มข." class="logo-img" >
      </div>
      <div class="header-text">
       <h1 id="siteTitle">KKU Campus Guide</h1>
@@ -504,8 +527,8 @@
      </div>
     </div>
     <div class="student-info">
-     <p><strong>รหัสนักศึกษา:</strong> <span id="studentId">663380001-9</span></p>
-     <p><strong>ชื่อ-สกุล:</strong> <span id="studentName">นายสมชาย ใจดี</span></p>
+     <p><strong>รหัสนักศึกษา:</strong> <span id="studentId">663380232-2</span></p>
+     <p><strong>ชื่อ-สกุล:</strong> <span id="studentName">นายวัฒนชัย บึงจันทร์</span></p>
     </div>
    </header>
    <main>
@@ -522,30 +545,30 @@
        </div>
        <div class="place-content">
         <h3>คอมเพล็กซ์</h3>
-        <p>ศูนย์รวมความสะดวกสบายของนักศึกษา มข. มีทั้งร้านอาหารหลากหลาย ร้านเครื่องเขียน ร้านสะดวกซื้อ ธนาคาร และสถานที่พักผ่อน เป็นจุดนัดพบยอดนิยมและศูนย์กลางของกิจกรรมนักศึกษา มีบรรยากาศคึกคักตลอดทั้งวัน</p>
+        <p>ศูนย์รวมความสะดวกสบายของนักศึกษา มข. มีทั้งร้านอาหารหลากหลาย ร้านเครื่องเขียน ร้านสะดวกซื้อ ธนาคาร และสถานที่พักผ่อน เป็นจุดนัดพบยอดนิยมและศูนย์กลางของกิจกรรมนักศึกษา </p>
        </div>
       </article>
       <article class="place-card">
        <div class="place-images">
         <div class="place-image">
-         ⚽
+         <img src="https://us-fbcloud.net/picpost/data/265/265924-53822a44941ec.jpg" alt="สนามกีฬา 50 ปี มข.">
         </div>
         <div class="place-image">
-         🏃
+         <img src="https://www.ballthai.com/wp-content/uploads/2021/04/%E0%B8%AA%E0%B8%99%E0%B8%B2%E0%B8%A1-%E0%B8%AD%E0%B8%9A%E0%B8%88.%E0%B8%82%E0%B8%AD%E0%B8%99%E0%B9%81%E0%B8%81%E0%B9%88%E0%B8%99-766x400.jpg" alt="สนามกีฬา 50 ปี มข.">
         </div>
        </div>
        <div class="place-content">
         <h3>สนามกีฬา 50 ปี</h3>
-        <p>สนามกีฬาขนาดมาตรฐานที่สร้างขึ้นเพื่อเฉลิมฉลอง 50 ปี มหาวิทยาลัยขอนแก่น มีลู่วิ่ง สนามฟุตบอล และอุปกรณ์กีฬาครบครัน เป็นสถานที่จัดการแข่งขันกีฬาสำคัญและเป็นที่ออกกำลังกายยอดนิยมของนักศึกษาและบุคลากร</p>
+        <p>สนามกีฬาขนาดมาตรฐานที่สร้างขึ้นเพื่อเฉลิมฉลอง 50 ปี มหาวิทยาลัยขอนแก่น มีลู่วิ่ง สนามฟุตบอล เป็นสถานที่จัดการแข่งขันกีฬาสำคัญและเป็นที่ออกกำลังกายยอดนิยมของนักศึกษาและบุคลากร</p>
        </div>
       </article>
       <article class="place-card">
        <div class="place-images">
         <div class="place-image">
-         📚
+         <img src="https://pbs.twimg.com/media/Dt9s1arUUAAvF6B.jpg" alt="ห้องสมุดกลาง มข.">
         </div>
         <div class="place-image">
-         📖
+         <img src="https://library.kku.ac.th/wp-content/uploads/2022/04/1-1024x576.png" alt="ห้องสมุดกลาง มข.">
         </div>
        </div>
        <div class="place-content">
@@ -556,10 +579,10 @@
       <article class="place-card">
        <div class="place-images">
         <div class="place-image">
-         🙏
+         <img src="https://www.kku.ac.th/wp-content/uploads/2019/11/73388389_1126681251015692_3940284704808239104_o.jpg" alt="เจ้าพ่อมอ มข.">
         </div>
         <div class="place-image">
-         ✨
+         <img src="https://old.khonkaenlink.info/home/upload/photo/news/5f49MAi3.jpg" alt="เจ้าพ่อมอ มข.">
         </div>
        </div>
        <div class="place-content">
@@ -576,10 +599,10 @@
         <input type="hidden" name="access_key" value="6bb68590-0fa3-44a2-b8cf-d7de8102134e">
       <div class="form-group"><label for="placeName">ชื่อสถานที่ *</label> <input type="text" id="placeName" required placeholder="เช่น อาคารเรียนรวม">
       </div>
-      <div class="form-group"><label for="placeDescription">รายละเอียด *</label> <textarea id="placeDescription" required placeholder="บรรยายเกี่ยวกั��สถานที่นี้..."></textarea>
+      <div class="form-group"><label for="placeDescription">รายละเอียด *</label> <textarea id="placeDescription" required placeholder="บรรยายเกี่ยวกับสถานที่นี้..."></textarea>
       </div>
-      <div class="form-group"><label for="imageUrl">URL ของ���า�� *</label> <input type="url" id="imageUrl" required placeholder="https://example.com/image.jpg">
-      </div><button type="submit" class="submit-btn" id="submitBtn"> <span id="submitBtnText">ส่งข้อมูล</span> </button>
+      <div class="form-group"><label for="imageUrl">URL ของสถานที่ *</label> <input type="url" id="imageUrl" required placeholder="https://example.com/image.jpg">
+      </div><button type="submit" class="submit-btn" id="submitBtn"> <span id="submitBtnText">เพิ่มสถานที่</span> </button>
      </form>
     </section>
     <section class="user-places-section">
