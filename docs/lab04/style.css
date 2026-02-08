@@ -1,0 +1,89 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #f8f9fb;
+    color: #333;
+}
+
+/* Header */
+.lab-header {
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    color: white;
+}
+
+.lab-header h1 {
+    letter-spacing: 1px;
+}
+
+.header-line {
+    width: 80px;
+    margin: 1rem auto;
+    border: 2px solid #f1faee;
+}
+
+.course-name {
+    font-weight: 300;
+    margin-bottom: 0.2rem;
+}
+
+.student-info {
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+/* Section */
+.section-main-title {
+    font-weight: 500;
+    color: #1d3557;
+}
+
+/* Image Card */
+.img-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+}
+
+.img-card h5 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #1d3557;
+}
+
+.img-card img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Hover */
+.img-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* Footer */
+.lab-footer {
+    background-color: #1d3557;
+    color: white;
+    font-size: 0.9rem;
+}
+
+/* Fade in animation */
+.fade-in {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
