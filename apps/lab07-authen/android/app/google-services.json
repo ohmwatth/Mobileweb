@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "765090315672",
+    "project_id": "mobileweb-59599",
+    "storage_bucket": "mobileweb-59599.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765090315672:android:15a214fb5d562aabba7fed",
+        "android_client_info": {
+          "package_name": "cpkku.watthanachai.lab07"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765090315672-r5u9am3ef8milvfr7betitjcu4h8844r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt-0T2bLf2rxCOvRcnH97-0NT7_DrFNNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765090315672-r5u9am3ef8milvfr7betitjcu4h8844r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
