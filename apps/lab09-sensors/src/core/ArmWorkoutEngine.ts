@@ -62,12 +62,11 @@ export class ArmWorkoutEngine {
   const y = sample.ay;
   const side = Math.abs(sample.ax) + Math.abs(sample.az);
 
-  // 🔥 ลด threshold ให้ยกใกล้ขึ้นได้
-  const UP_TH = 0.7;       // เดิม 2.0
-  const DOWN_TH = -0.5;    // เดิม -1.5
-  const MIN_ROM = 1.0;     // เดิม 3.0
-  const MIN_MS = 500;      // เดิม 700
-  const MAX_MS = 4000;     // เดิม 3500
+  const UP_TH = 0.7;       
+  const DOWN_TH = -0.5;   
+  const MIN_ROM = 1.0;     
+  const MIN_MS = 500;     
+  const MAX_MS = 4000;     
 
   if (this.phase === "WAIT_UP") {
     this.peak = Math.max(this.peak, y);
@@ -100,7 +99,7 @@ export class ArmWorkoutEngine {
       } else if (repMs > MAX_MS) {
         ok = false;
         msg = "ช้าเกินไป";
-      } else if (side > 6) {   // ผ่อนปรนมากขึ้น
+      } else if (side > 6) {   
         ok = false;
         msg = "พยายามยกตรง ๆ";
       }
